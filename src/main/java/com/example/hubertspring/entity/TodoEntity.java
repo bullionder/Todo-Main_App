@@ -1,13 +1,14 @@
 package com.example.hubertspring.entity;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Table(name = "todo")
 public class TodoEntity {
     @Id

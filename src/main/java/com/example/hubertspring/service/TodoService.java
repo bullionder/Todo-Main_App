@@ -1,6 +1,7 @@
 package com.example.hubertspring.service;
 
-import com.example.hubertspring.controller.mapper.TodoMapper;
+import com.example.hubertspring.api.controller.mapper.TodoMapper;
+import com.example.hubertspring.api.dto.TodoDto;
 import com.example.hubertspring.entity.TodoEntity;
 import com.example.hubertspring.model.Todo;
 import com.example.hubertspring.repository.TodoRepo;
@@ -8,9 +9,7 @@ import com.example.hubertspring.repository.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +20,8 @@ public class TodoService {
     private final UserRepo userRepo;
 
 
-    public Optional<Todo> createTodo(TodoEntity todoEntity, Long userId) {
+    public Optional<Todo> createTodo(TodoDto todoDto, Long userId) {
+        TodoEntity todoEntity = todoMapper.toEntity(todoDto);
         return userRepo.findById(userId)
                 .map(user -> {
                     todoEntity.setUser(user);

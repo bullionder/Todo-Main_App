@@ -1,24 +1,28 @@
 package com.example.hubertspring.service;
 
-import com.example.hubertspring.controller.mapper.UserMapper;
+import com.example.hubertspring.api.controller.mapper.UserMapper;
+import com.example.hubertspring.api.dto.UserDto;
 import com.example.hubertspring.entity.UserEntity;
 import com.example.hubertspring.model.Todo;
 import com.example.hubertspring.model.User;
 import com.example.hubertspring.repository.UserRepo;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Transactional
 public class UserService {
-    private UserRepo userRepo;
-    private UserMapper userMapper;
+    private final UserRepo userRepo;
+    private final UserMapper userMapper;
 
-    public UserEntity registerUser(UserEntity userEntity) {
-        return userRepo.save(userEntity);
+    public UserEntity registerUser(UserDto userDto) {
+        return userRepo.save(userMapper.toEntity(userDto));
     }
 
     public Optional<User> getOne(Long id) {

@@ -1,5 +1,7 @@
 package com.example.hubertspring.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +11,9 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user")
+@Builder
 public class UserEntity {
     @Id
     @Column(name = "id")

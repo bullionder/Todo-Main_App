@@ -15,7 +15,7 @@ public interface TodoRepo extends CrudRepository<TodoEntity, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "DELETE FROM todo WHERE user_id = ?userId", nativeQuery = true)
+    @Query(value = "DELETE FROM todo WHERE user_id = :userId", nativeQuery = true)
     void deleteAllWithUserId(@Param("userId") Long userId);
 
     TodoEntity findByTodoTitle(String todoTitle);

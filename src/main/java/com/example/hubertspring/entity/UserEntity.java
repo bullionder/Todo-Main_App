@@ -16,6 +16,7 @@ import java.util.List;
 @Builder
 public class UserEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long userId;
     @Column(name = "username")

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  hubi-mysql8-db:
+    image: mysql:8.0.33
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: 'hubertspring'
+      MYSQL_USER: 'hubi'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      # <Port exposed> : <MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container for accessing from the host system
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+
+  hubi-be-app:
+    build:
+      context: .
+    container_name: hubi-be-app
+    depends_on:
+      - hubi-mysql8-db
+    environment:
+      DB_URL: 'jdbc:mysql://hubi-mysql8-db:3306/hubertspring?useUnicode=true&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC'
+    ports:
+      - '8090:8080'
+    expose:
+      - '8080'
+
+volumes:
+  my-db:
+    driver: local
